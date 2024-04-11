@@ -30,6 +30,7 @@ export default defineConfig({
         "settings.about": "/settings.about.js",
         "settings.group": "/settings.group.js",
         "settings.instance": "/settings.instance.js",
+        "settings.users": "/settings.users.js",
         maintenance: "/maintenance.js",
         "maintenance.database": "/maintenance.database.js",
         "maintenance.schema": "/maintenance.schema.js",
