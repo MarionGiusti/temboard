@@ -53,6 +53,7 @@ onMounted(() => {
 
 function register(data) {
   waiting.value = true;
+  console.log("DATA NEW", data);
   $.ajax({
     url: "/json/settings/user",
     method: "POST",
