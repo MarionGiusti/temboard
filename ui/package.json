@@ -25,6 +25,7 @@
     "moment": "^2.29.4",
     "popper.js": "^1.12.3",
     "vue": "^2.7.10",
+    "vue-multiselect": "^2.1.9",
     "vue-router": "^3.6.5",
     "vuedraggable": "^2.24.3"
   },

@@ -4,7 +4,6 @@ import logging
 import os
 from textwrap import dedent
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -35,7 +34,7 @@ class ViteJSExtension:
             logger.debug("Skip reading ViteJS manifest.")
             return
 
-        logger.debug("Loading ViteJS manifest.")
+        logger.debug("Loading ViteJS manifest %s.", self.manifest_path)
         with open(self.manifest_path) as fo:
             self.manifest = json.load(fo)
 

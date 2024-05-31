@@ -75,9 +75,6 @@ function register(data) {
 
 function reset() {
   Object.assign(state, initialState);
-  if (formCmp.value) {
-    formCmp.value.teardown_multiselects();
-  }
 }
 </script>
 

@@ -4,7 +4,7 @@
  *
  * Supports temBoard 7.X agent with key.
  */
-import { computed, nextTick, onMounted, onUpdated, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 
 import Error from "../Error.vue";
 import ModalDialog from "../ModalDialog.vue";
@@ -39,7 +39,6 @@ const groups = computed(() => {
 });
 
 function open(username) {
-  console.log("OPEN");
   // Reset dialog state.
   error.value.clear();
   waiting.value = true;
@@ -94,7 +93,6 @@ function update(data) {
 
 function reset() {
   Object.assign(form, initialForm);
-  formCmp.value.teardown_multiselects();
 }
 
 defineExpose({ open });

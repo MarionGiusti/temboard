@@ -3,10 +3,9 @@
 {% block title %}temBoard / Settings / Users{% end %}
 
 {% block head %}
+{% for link in vitejs.css_links_for('settings.users.js') %}{% raw link %}{% end %}
 <!-- DataTables CSS -->
 <link href="/js/datatables/datatables.min.css" rel="stylesheet">
-<!-- Multiselect -->
-<link href="/css/bootstrap-multiselect.css" rel="stylesheet">
 {% end %}
 
 {% block content %}
@@ -87,5 +86,67 @@
     $('[data-toggle=popover]').popover('hide');
     load_delete_user_confirm('UserModal', $(this).data('username'));
   });
+  function load_delete_user_confirm(modal_id, username)
+{
+  $.ajax({
+    url: '/json/settings/user/'+username,
+    type: 'get',
+    beforeSend: function(xhr){
+      $('#'+modal_id+'Label').html('Processing, please wait...');
+      $('#'+modal_id+'Info').html('<div class="row"><div class="col-md-4 col-md-offset-4"><div class="progress"><div class="progress-bar progress-bar-striped" style="width: 100%;">Please wait ...</div></div></div></div>');
+      $('#'+modal_id+'Body').html('');
+      $('#'+modal_id+'Footer').html('<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>');
+    },
+    async: true,
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      var footer_html = '';
+      footer_html += '<button type="submit" id="buttonDeleteUser" class="btn btn-danger">Yes, delete this user</button>';
+      footer_html += ' <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>';
+      $('#'+modal_id+'Label').html('Delete user confirmation');
+      $('#'+modal_id+'Body').html('');
+      $('#'+modal_id+'Footer').html(footer_html);
+      $('#buttonDeleteUser').click(function( event ) {
+          event.preventDefault();
+        send_delete_user(modal_id, data['role_name']);
+      });
+    },
+    error: function(xhr) {
+      $('#'+modal_id+'Label').html('Delete user confirmation');
+      $('#'+modal_id+'Info').html('<div class="alert alert-danger" role="alert">ERROR: '+escapeHtml(JSON.parse(xhr.responseText).error)+'</div>');
+      $('#'+modal_id+'Body').html('');
+      $('#'+modal_id+'Footer').html('<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>');
+    }
+  });
+}
+
+function send_delete_user(modal_id, username)
+{
+  $.ajax({
+    url: '/json/settings/delete/user',
+    type: 'post',
+    beforeSend: function(xhr){
+      $('#'+modal_id+'Label').html('Processing, please wait...');
+      $('#'+modal_id+'Info').html('<div class="row"><div class="col-md-4 col-md-offset-4"><div class="progress"><div class="progress-bar progress-bar-striped" style="width: 100%;">Please wait ...</div></div></div></div>');
+      $('#'+modal_id+'Body').html('');
+    },
+    async: true,
+    contentType: "application/json",
+    dataType: "json",
+    data: JSON.stringify({ 'username': username }),
+    success: function (data) {
+      $('#'+modal_id).modal('hide');
+      var url = window.location.href;
+      window.location.replace(url);
+    },
+    error: function(xhr) {
+      $('#'+modal_id+'Label').html('Delete user confirmation');
+      $('#'+modal_id+'Info').html('<div class="alert alert-danger" role="alert">ERROR: '+escapeHtml(JSON.parse(xhr.responseText).error)+'</div>');
+      $('#'+modal_id+'Body').html('');
+    }
+  });
+}
+
 </script>
 {% end %}
