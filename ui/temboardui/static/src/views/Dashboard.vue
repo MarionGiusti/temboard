@@ -471,7 +471,7 @@ onMounted(() => {
         <!-- System -->
         <div class="row">
           <div class="col-xl-12 col mb-xl-2">
-            <div class="small text-muted text-center">System</div>
+            <div class="small text-body-secondary text-center">System</div>
             <div class="small text-center">
               {{ props.discover.system.distribution }} /
               <span id="os_version">{{ props.discover.system.os_version }}</span>
@@ -480,7 +480,12 @@ onMounted(() => {
               <div class="col-6 small text-center">
                 <div class="chart-title">
                   CPU &times; {{ discover.system.cpu_count }}
-                  <i id="cpu-info" class="fa fa-info-circle text-muted" data-bs-toggle="tooltip" :title="cpuTooltip">
+                  <i
+                    id="cpu-info"
+                    class="fa fa-info-circle text-body-secondary"
+                    data-bs-toggle="tooltip"
+                    :title="cpuTooltip"
+                  >
                   </i>
                 </div>
                 <div id="total-cpu" class="fw-bold" v-html="totalCpu"></div>
@@ -505,7 +510,7 @@ onMounted(() => {
         <!-- Postgres -->
         <div class="row">
           <div class="col-xl-12 col mb-xl-2">
-            <div class="small text-muted text-center">
+            <div class="small text-body-secondary text-center">
               {{ discover.postgres.version_summary }}
               <template v-if="status">
                 <span
@@ -617,7 +622,7 @@ onMounted(() => {
         <div class="text-center small">
           Current status
           <div class="position-absolute top-0 right-0 pe-2">
-            <a href="alerting" class="small text-muted">More&hellip;</a>
+            <a href="alerting" class="small text-body-secondary">More&hellip;</a>
           </div>
         </div>
         <div class="row small mb-2">
@@ -627,7 +632,7 @@ onMounted(() => {
                 class="p-1 rounded"
                 v-bind:class="[getBorderColor(state.state), { 'striped bg-light': !state.enabled }]"
               >
-                <a v-bind:href="'alerting/' + state.name" v-bind:class="{ 'text-muted': !state.enabled }">
+                <a v-bind:href="'alerting/' + state.name" v-bind:class="{ 'text-body-secondary': !state.enabled }">
                   <div
                     class="text-nowrap fw-bold"
                     style="overflow: hidden; text-overflow: ellipsis"
@@ -652,7 +657,7 @@ onMounted(() => {
               <div class="progress-bar progress-bar-striped" style="width: 100%">Please wait ...</div>
             </div>
           </div>
-          <div class="text-muted" v-if="alerts.length == 0">No alerts</div>
+          <div class="text-body-secondary" v-if="alerts.length == 0">No alerts</div>
           <div v-cloak class="mb-0" ref="divAlertsEl">
             <template v-for="alert in alerts">
               <div
@@ -661,7 +666,7 @@ onMounted(() => {
                 data-bs-trigger="hover"
               >
                 <div class="p-1">
-                  <div class="float-end text-muted text-end">{{ moment(alert.datetime).fromNow() }}<br /></div>
+                  <div class="float-end text-body-secondary text-end">{{ moment(alert.datetime).fromNow() }}<br /></div>
                   <div>
                     <a v-bind:href="'alerting/' + alert.name">
                       <span class="small text" v-bind:class="'text-' + alert.state.toLowerCase()">
@@ -677,7 +682,7 @@ onMounted(() => {
                     </a>
                   </div>
                   <div
-                    class="popover-content text-muted d-none"
+                    class="popover-content text-body-secondary d-none"
                     v-if="alert.state == 'WARNING' || alert.state == 'CRITICAL'"
                   >
                     {{ moment(alert.datetime).format() }}<br />
